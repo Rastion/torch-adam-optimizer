@@ -40,13 +40,10 @@ class TorchAdamOptimizer(BaseOptimizer):
 
         for step in range(self.max_steps):
             optimizer.zero_grad()
-            # Compute cost using the cost function (assumed to accept a NumPy array).
-            cost = cost_function(theta.detach().numpy())
-            # Convert cost to a torch tensor.
-            cost_tensor = torch.tensor(cost, dtype=torch.float32, requires_grad=True)
+            cost_tensor = cost_function(theta)  # cost_tensor is *already* a torch scalar
             cost_tensor.backward()
             optimizer.step()
             if self.verbose:
-                print(f"Step {step}: cost = {cost}")
+                print(f"Step {step}: cost = {cost_tensor}")
         final_cost = cost_function(theta.detach().numpy())
         return theta.detach().numpy(), final_cost
