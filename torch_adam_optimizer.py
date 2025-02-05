@@ -1,12 +1,10 @@
-# File: torch_adam_optimizer.py
-
 import torch
-from rastion_core.base_optimizer import BaseOptimizer
+from rastion_hub.base_optimizer import BaseOptimizer
 
 class TorchAdamOptimizer(BaseOptimizer):
     """
     A classical optimizer that uses PyTorch's Adam optimizer to update
-    the variational parameters.
+    the variational parameters of a quantum circuit.
     """
     def __init__(self, lr=0.01, max_steps=100, verbose=False):
         """
@@ -40,7 +38,7 @@ class TorchAdamOptimizer(BaseOptimizer):
 
         for step in range(self.max_steps):
             optimizer.zero_grad()
-            cost_tensor = cost_function(theta)  # cost_tensor is *already* a torch scalar
+            cost_tensor = cost_function(theta)  
             cost_tensor.backward()
             optimizer.step()
             if self.verbose:
