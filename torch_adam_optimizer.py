@@ -35,3 +35,11 @@ class TorchAdamOptimizer(BaseOptimizer):
         cost.backward()
         self.optimizer.step()
         return self.theta.detach(), cost.item()
+    
+    def optimize(self, problem, **kwargs):
+        """
+        Dummy implementation of the abstract method.
+        Since we use this optimizer only for its step_and_cost method,
+        this method is not intended to be used.
+        """
+        raise NotImplementedError("Use step_and_cost() instead of optimize() for TorchAdamOptimizer.")
